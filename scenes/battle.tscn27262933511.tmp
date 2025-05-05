@@ -1,0 +1,54 @@
+[gd_scene load_steps=4 format=3 uid="uid://etrw33s6ro06"]
+
+[ext_resource type="Script" uid="uid://c3qpdu3rnsaeg" path="res://scripts/battle.gd" id="1_dn72j"]
+[ext_resource type="PackedScene" uid="uid://ci348ue1cl55n" path="res://ui/fight/fight_people/fight_people.tscn" id="2_th188"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_th188"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 10.0
+content_margin_bottom = 10.0
+
+[node name="Battle" type="PanelContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_th188")
+script = ExtResource("1_dn72j")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Enemy" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="PanelContainer" parent="VBoxContainer/Enemy" instance=ExtResource("2_th188")]
+layout_mode = 2
+
+[node name="空" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="player" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="PanelContainer" parent="VBoxContainer/player" instance=ExtResource("2_th188")]
+layout_mode = 2
+
+[node name="BattleLog" type="TextEdit" parent="VBoxContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+text = "战斗开始..."
+editable = false
+
+[node name="AttackButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "攻击"
+
+[connection signal="pressed" from="VBoxContainer/AttackButton" to="." method="_on_attack_button_pressed"]

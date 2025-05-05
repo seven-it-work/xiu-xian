@@ -1,0 +1,73 @@
+[gd_scene load_steps=10 format=3 uid="uid://ci348ue1cl55n"]
+
+[ext_resource type="Script" uid="uid://3r2r2un7fyyi" path="res://ui/fight/fight_people/fight_people.gd" id="1_6e67p"]
+[ext_resource type="Texture2D" uid="uid://bo73e3dmg2xaa" path="res://resource/test1.png" id="2_jrh2p"]
+[ext_resource type="Texture2D" uid="uid://csa2tiiqvj1wp" path="res://ui/fight/fight_people/hp_red.png" id="3_hlk0h"]
+[ext_resource type="Texture2D" uid="uid://bbcxboosd2flw" path="res://ui/fight/fight_people/hp_limitred.png" id="4_jx4dm"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jrh2p"]
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+expand_margin_left = 5.0
+expand_margin_top = 5.0
+expand_margin_right = 5.0
+expand_margin_bottom = 5.0
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vv3og"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7l4o1"]
+texture = ExtResource("3_hlk0h")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1wfvc"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_arsp2"]
+texture = ExtResource("4_jx4dm")
+
+[node name="PanelContainer" type="PanelContainer"]
+theme_override_styles/panel = SubResource("StyleBoxFlat_jrh2p")
+script = ExtResource("1_6e67p")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="VBoxContainer"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+texture = ExtResource("2_jrh2p")
+expand_mode = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+text = "生命值"
+
+[node name="ProgressBar" type="ProgressBar" parent="VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/background = SubResource("StyleBoxEmpty_vv3og")
+theme_override_styles/fill = SubResource("StyleBoxTexture_7l4o1")
+step = 1.0
+value = 50.0
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+text = "护盾值"
+
+[node name="ProgressBar" type="ProgressBar" parent="VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/background = SubResource("StyleBoxEmpty_1wfvc")
+theme_override_styles/fill = SubResource("StyleBoxTexture_arsp2")
+step = 1.0
+value = 50.0

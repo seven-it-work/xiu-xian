@@ -17,7 +17,7 @@ func _on_attack_button_pressed():
 	# 检查敌人是否死亡
 	if enemy.hp <= 0:
 		$VBoxContainer/BattleLog.text += "\n战斗胜利！"
-		$VBoxContainer/AttackButton.disabled = true
+		#$VBoxContainer/AttackButton.disabled = true
 		return
 	
 	# 敌人反击
@@ -33,5 +33,6 @@ func _on_attack_button_pressed():
 	update_ui()
 
 func update_ui():
-	$VBoxContainer/PlayerInfo.text = "玩家信息:\n生命值: %d\n攻击力: %d\n防御力: %d" % [player.hp, player.atk, player.def]
-	$VBoxContainer/EnemyInfo.text = "敌人信息:\n生命值: %d\n攻击力: %d\n防御力: %d" % [enemy.hp, enemy.atk, enemy.def]
+	pass
+	#$VBoxContainer/PlayerInfo.text = "玩家信息:\n生命值: %d\n攻击力: %d\n防御力: %d" % [player.hp, player.atk, player.def]
+	#$VBoxContainer/EnemyInfo.text = "敌人信息:\n生命值: %d\n攻击力: %d\n防御力: %d" % [enemy.hp, enemy.atk, enemy.def]
