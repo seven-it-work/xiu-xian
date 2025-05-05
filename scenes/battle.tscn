@@ -165,6 +165,7 @@ layout_mode = 2
 alignment = 1
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="VBoxContainer/SkillList/GridContainer/PanelContainer/VBoxContainer"]
+visible = false
 position = Vector2(80, 99.5)
 scale = Vector2(1.2046, 1.59336)
 sprite_frames = SubResource("SpriteFrames_bi5l8")
