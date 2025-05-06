@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="xiu-xian"
-run/main_scene="uid://etrw33s6ro06"
+run/main_scene="uid://1va80oujdru2"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 
@@ -24,7 +24,7 @@ window/stretch/scale=0.5
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/codeandweb.texturepacker/plugin.cfg")
+enabled=PackedStringArray()
 
 [rendering]
 

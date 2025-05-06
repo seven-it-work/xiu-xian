@@ -1,6 +1,5 @@
-[gd_scene load_steps=26 format=3 uid="uid://etrw33s6ro06"]
+[gd_scene load_steps=25 format=3 uid="uid://caimrawwj83w1"]
 
-[ext_resource type="Script" uid="uid://c3qpdu3rnsaeg" path="res://scripts/battle.gd" id="1_dn72j"]
 [ext_resource type="PackedScene" uid="uid://ci348ue1cl55n" path="res://ui/fight/fight_people/fight_people.tscn" id="2_th188"]
 [ext_resource type="Texture2D" uid="uid://pfgfaaqlo4tx" path="res://resource/guangquan/guangquan1_1.png" id="3_dd63g"]
 [ext_resource type="Texture2D" uid="uid://du6siajl510bj" path="res://resource/guangquan/guangquan1_2.png" id="4_fpf3k"]
@@ -114,7 +113,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_th188")
-script = ExtResource("1_dn72j")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 2

@@ -1,0 +1,43 @@
+{
+  "filename": "res://objs/People/People.gd",
+  "name_str": "",
+  "hp": {
+    "filename": "res://objs/Property/Property.gd",
+    "name_str": "生命值",
+    "current_value": 100.0,
+    "min_v": 0.0,
+    "max_v": 100.0,
+    "growth_min": 0.0,
+    "growth_max": 50.0,
+    "growth_factor": 1.0,
+    "grow_value": 0.0,
+    "growth_times": 0,
+    "data_type": 2
+  },
+  "atk": {
+    "filename": "res://objs/Property/Property.gd",
+    "name_str": "攻击力",
+    "current_value": 0.0,
+    "min_v": 10.0,
+    "max_v": 20.0,
+    "growth_min": 0.0,
+    "growth_max": 10.0,
+    "growth_factor": 1.0,
+    "grow_value": 0.0,
+    "growth_times": 0,
+    "data_type": 1
+  },
+  "def": {
+    "filename": "res://objs/Property/Property.gd",
+    "name_str": "防御力",
+    "current_value": 0.0,
+    "min_v": 5.0,
+    "max_v": 10.0,
+    "growth_min": 0.0,
+    "growth_max": 5.0,
+    "growth_factor": 1.0,
+    "grow_value": 0.0,
+    "growth_times": 0,
+    "data_type": 1
+  }
+}

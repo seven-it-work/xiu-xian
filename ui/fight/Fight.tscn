@@ -1,0 +1,53 @@
+[gd_scene load_steps=4 format=3 uid="uid://bf3lda6kcp60q"]
+
+[ext_resource type="Script" uid="uid://222suqcvqoye" path="res://ui/fight/fight.gd" id="1_ofa5b"]
+[ext_resource type="PackedScene" uid="uid://ci348ue1cl55n" path="res://ui/fight/fight_people/fight_people.tscn" id="1_rm8j5"]
+[ext_resource type="PackedScene" uid="uid://chxahynenhy0i" path="res://ui/fight/fight_skill/fight_skill.tscn" id="3_xdhw2"]
+
+[node name="Fight" type="PanelContainer"]
+offset_right = 361.0
+offset_bottom = 540.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_ofa5b")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="BattleLog" type="TextEdit" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+text = "战斗开始..."
+editable = false
+
+[node name="Enemy" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="PanelContainer" parent="VBoxContainer/Enemy" instance=ExtResource("1_rm8j5")]
+layout_mode = 2
+
+[node name="空" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="player" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="PanelContainer" parent="VBoxContainer/player" instance=ExtResource("1_rm8j5")]
+layout_mode = 2
+
+[node name="SkillList" type="ScrollContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="VBoxContainer/SkillList"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+columns = 2
+
+[node name="Skill" parent="VBoxContainer/SkillList/GridContainer" instance=ExtResource("3_xdhw2")]
+layout_mode = 2

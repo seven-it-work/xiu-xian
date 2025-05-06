@@ -1,0 +1,129 @@
+[gd_scene load_steps=24 format=3 uid="uid://chxahynenhy0i"]
+
+[ext_resource type="Script" uid="uid://bm4gy16788c7q" path="res://ui/fight/fight_skill/fight_skill.gd" id="1_q5tfp"]
+[ext_resource type="Texture2D" uid="uid://pfgfaaqlo4tx" path="res://resource/guangquan/guangquan1_1.png" id="1_tlxsk"]
+[ext_resource type="Texture2D" uid="uid://du6siajl510bj" path="res://resource/guangquan/guangquan1_2.png" id="2_q5tfp"]
+[ext_resource type="Texture2D" uid="uid://buaty11it5aqd" path="res://resource/guangquan/guangquan1_3.png" id="3_e2b0p"]
+[ext_resource type="Texture2D" uid="uid://6ji5yk70tk74" path="res://resource/guangquan/guangquan1_4.png" id="4_adgof"]
+[ext_resource type="Texture2D" uid="uid://ddmtwoob4x2ub" path="res://resource/guangquan/guangquan1_5.png" id="5_hg7ye"]
+[ext_resource type="Texture2D" uid="uid://dyy2ns7klf225" path="res://resource/guangquan/guangquan1_6.png" id="6_2kr3b"]
+[ext_resource type="Texture2D" uid="uid://k1a5wmqyh1m7" path="res://resource/guangquan/guangquan1_7.png" id="7_3ir26"]
+[ext_resource type="Texture2D" uid="uid://duw0e3v3l2da5" path="res://resource/guangquan/guangquan1_8.png" id="8_v3420"]
+[ext_resource type="Texture2D" uid="uid://diru1h1sjdlre" path="res://resource/guangquan/guangquan1_9.png" id="9_l4oqm"]
+[ext_resource type="Texture2D" uid="uid://l5e7m6xcrhc" path="res://resource/guangquan/guangquan1_10.png" id="10_4ywj4"]
+[ext_resource type="Texture2D" uid="uid://cua8nr70a7ihj" path="res://resource/guangquan/guangquan1_11.png" id="11_jdpjw"]
+[ext_resource type="Texture2D" uid="uid://bulcje8fhp60g" path="res://resource/guangquan/guangquan1_12.png" id="12_54obg"]
+[ext_resource type="Texture2D" uid="uid://bhx67qs3rnh3s" path="res://resource/guangquan/guangquan1_13.png" id="13_w7gbu"]
+[ext_resource type="Texture2D" uid="uid://dnevtqdqcfpko" path="res://resource/guangquan/guangquan1_14.png" id="14_flq3n"]
+[ext_resource type="Texture2D" uid="uid://xctpvndxwb1p" path="res://resource/guangquan/guangquan1_15.png" id="15_ryknw"]
+[ext_resource type="Texture2D" uid="uid://d05cj3pxk6hsk" path="res://resource/guangquan/guangquan1_16.png" id="16_xyjmh"]
+[ext_resource type="Texture2D" uid="uid://dj2wgf7b77xjd" path="res://resource/guangquan/guangquan1_17.png" id="17_y8w1a"]
+[ext_resource type="Texture2D" uid="uid://bb83plfwf0sm6" path="res://resource/guangquan/guangquan1_18.png" id="18_jb6rd"]
+[ext_resource type="Texture2D" uid="uid://d2ae451l4vy3d" path="res://resource/guangquan/guangquan1_19.png" id="19_boegb"]
+[ext_resource type="Texture2D" uid="uid://ct0lbiw4pi48a" path="res://resource/guangquan/guangquan1_20.png" id="20_ulueq"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4iw2e"]
+bg_color = Color(0.262932, 0.262932, 0.262932, 1)
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7ymi6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_tlxsk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_q5tfp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_e2b0p")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_adgof")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_hg7ye")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_2kr3b")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_3ir26")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_v3420")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_l4oqm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_4ywj4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_jdpjw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_54obg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_w7gbu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_flq3n")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_ryknw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_xyjmh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_y8w1a")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_jb6rd")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_boegb")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_ulueq")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="FightSkill" type="PanelContainer"]
+custom_minimum_size = Vector2(170, 200)
+theme_override_styles/panel = SubResource("StyleBoxFlat_4iw2e")
+script = ExtResource("1_q5tfp")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+alignment = 1
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="VBoxContainer"]
+visible = false
+position = Vector2(80, 99.5)
+scale = Vector2(1.2046, 1.59336)
+sprite_frames = SubResource("SpriteFrames_7ymi6")
+autoplay = "default"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_vertical = 3
+text = "描述"
+
+[node name="AttackButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+text = "攻击"
+
+[connection signal="pressed" from="VBoxContainer/AttackButton" to="." method="_on_attack_button_pressed"]
