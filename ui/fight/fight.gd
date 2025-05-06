@@ -1,14 +1,18 @@
-extends PanelContainer
+extends Control
 
 
 func init(enemyList:Array):
 	for i in $VBoxContainer/Enemy.get_children():
 		i.free()
 	for i in enemyList:
-		var f_p=preload("res://ui/fight/fight_people/fight_people.tscn").instantiate()
+		var f_p=preload("uid://ci348ue1cl55n").instantiate()
 		$VBoxContainer/Enemy.add_child(f_p)
+	for i in $VBoxContainer/player.get_children():
+		i.free()
 	
+	var f_p=preload("uid://ci348ue1cl55n").instantiate()
 	var player=People.build();
-	$VBoxContainer/player/PanelContainer.init(player)
-	$VBoxContainer/SkillList/GridContainer/Skill.init($VBoxContainer/player/PanelContainer,$VBoxContainer/player.get_children(),$VBoxContainer/Enemy.get_children())
+	f_p.init(player)
+	$VBoxContainer/player.add_child(f_p)
+	$VBoxContainer/SkillList/GridContainer/Skill.init(f_p,$VBoxContainer/player.get_children(),$VBoxContainer/Enemy.get_children())
 	pass

@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://caimrawwj83w1"]
+[gd_scene load_steps=25 format=3 uid="uid://cofsaidcjf4vn"]
 
 [ext_resource type="PackedScene" uid="uid://ci348ue1cl55n" path="res://ui/fight/fight_people/fight_people.tscn" id="2_th188"]
 [ext_resource type="Texture2D" uid="uid://pfgfaaqlo4tx" path="res://resource/guangquan/guangquan1_1.png" id="3_dd63g"]

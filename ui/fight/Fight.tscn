@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://bf3lda6kcp60q"]
+[gd_scene load_steps=4 format=3 uid="uid://dihu630xaj28v"]
 
 [ext_resource type="Script" uid="uid://222suqcvqoye" path="res://ui/fight/fight.gd" id="1_ofa5b"]
 [ext_resource type="PackedScene" uid="uid://ci348ue1cl55n" path="res://ui/fight/fight_people/fight_people.tscn" id="1_rm8j5"]
@@ -16,13 +16,14 @@ layout_mode = 2
 theme_override_constants/separation = 20
 
 [node name="BattleLog" type="TextEdit" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
-size_flags_vertical = 3
 text = "战斗开始..."
 editable = false
 
 [node name="Enemy" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
+theme_override_constants/separation = 25
 alignment = 1
 
 [node name="PanelContainer" parent="VBoxContainer/Enemy" instance=ExtResource("1_rm8j5")]
@@ -34,6 +35,7 @@ size_flags_vertical = 3
 
 [node name="player" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
+theme_override_constants/separation = 25
 alignment = 1
 
 [node name="PanelContainer" parent="VBoxContainer/player" instance=ExtResource("1_rm8j5")]

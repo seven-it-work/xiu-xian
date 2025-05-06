@@ -1,0 +1,13 @@
+extends Control
+
+func _ready() -> void:
+	var p=People.build({lv=10,hp=10})
+	var p1=People.build({lv=10,hp=10})
+	$ScrollContainer/FightUi.init([p,p1])
+	pass
+
+func _process(delta: float) -> void:
+	self.size=get_viewport().get_visible_rect().size
+	$ScrollContainer.size=self.size
+	$ScrollContainer/FightUi.size=self.size
+	pass
