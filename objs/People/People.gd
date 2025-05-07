@@ -1,7 +1,9 @@
 extends Node
 class_name People
 
+#region 属性
 @export var name_str: String
+# 生命值
 @export var hp: Property=Property.buildByJsonStr("""
 {
 	"filename": "res://objs/Property/Property.gd",
@@ -16,7 +18,22 @@ class_name People
 	"growth_times": 0,
 	"data_type": 2
   }""")
-
+# 护盾值
+@export var shield: Property=Property.buildByJsonStr("""
+{
+	"filename": "res://objs/Property/Property.gd",
+	"name_str": "护盾值",
+	"current_value": 0.0,
+	"min_v": 0.0,
+	"max_v": 100.0,
+	"growth_min": 0.0,
+	"growth_max": 10.0,
+	"growth_factor": 1.0,
+	"grow_value": 0.0,
+	"growth_times": 0,
+	"data_type": 2
+  }""")
+# 攻击力
 @export var atk:Property=Property.buildByJsonStr("""
   {
 	"filename": "res://objs/Property/Property.gd",
@@ -32,7 +49,7 @@ class_name People
 	"data_type": 1
   }
   """)
-
+# 防御力
 @export var def:Property=Property.buildByJsonStr("""
   {
 	"filename": "res://objs/Property/Property.gd",
@@ -48,6 +65,11 @@ class_name People
 	"data_type": 1
   }
   """)
+
+@export var SkillList:Array=[]
+
+# endregion
+
 
 static func build(builder=null)->People:
 	var peopleBuilder:PeopleBuilder

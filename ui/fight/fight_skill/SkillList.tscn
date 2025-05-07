@@ -1,0 +1,21 @@
+[gd_scene load_steps=3 format=3 uid="uid://bu47fybex8bo0"]
+
+[ext_resource type="Script" uid="uid://b5dl38aqm6yl4" path="res://ui/fight/fight_skill/skill_list.gd" id="1_63ou7"]
+[ext_resource type="PackedScene" uid="uid://chxahynenhy0i" path="res://ui/fight/fight_skill/fight_skill.tscn" id="1_sku2m"]
+
+[node name="SkillList" type="Node"]
+script = ExtResource("1_63ou7")
+
+[node name="FightSkill" parent="." instance=ExtResource("1_sku2m")]
+
+[node name="FightSkill2" parent="." instance=ExtResource("1_sku2m")]
+offset_left = 36.0
+offset_top = 9.0
+offset_right = 206.0
+offset_bottom = 209.0
+
+[node name="FightSkill3" parent="." instance=ExtResource("1_sku2m")]
+offset_left = 71.0
+offset_top = -1.0
+offset_right = 241.0
+offset_bottom = 199.0

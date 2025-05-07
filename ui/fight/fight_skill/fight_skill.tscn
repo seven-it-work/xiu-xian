@@ -31,6 +31,7 @@ border_width_bottom = 5
 corner_radius_top_left = 10
 corner_radius_top_right = 10
 corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_7ymi6"]
 animations = [{
@@ -105,25 +106,37 @@ custom_minimum_size = Vector2(170, 200)
 theme_override_styles/panel = SubResource("StyleBoxFlat_4iw2e")
 script = ExtResource("1_q5tfp")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="."]
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 2
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+text = "测试一下"
+autowrap_mode = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
 alignment = 1
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="VBoxContainer"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="HBoxContainer/VBoxContainer"]
 visible = false
 position = Vector2(80, 99.5)
 scale = Vector2(1.2046, 1.59336)
 sprite_frames = SubResource("SpriteFrames_7ymi6")
 autoplay = "default"
 
-[node name="RichTextLabel" type="RichTextLabel" parent="VBoxContainer"]
+[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 size_flags_vertical = 3
 text = "描述"
 
-[node name="AttackButton" type="Button" parent="VBoxContainer"]
+[node name="AttackButton" type="Button" parent="HBoxContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 text = "攻击"
 
-[connection signal="pressed" from="VBoxContainer/AttackButton" to="." method="_on_attack_button_pressed"]
+[connection signal="gui_input" from="." to="." method="_on_gui_input"]
+[connection signal="pressed" from="HBoxContainer/VBoxContainer/AttackButton" to="." method="_on_attack_button_pressed"]

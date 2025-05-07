@@ -15,7 +15,10 @@ script = ExtResource("1_ofa5b")
 layout_mode = 2
 theme_override_constants/separation = 20
 
-[node name="BattleLog" type="TextEdit" parent="VBoxContainer"]
+[node name="tips" type="PanelContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="BattleLog" type="TextEdit" parent="VBoxContainer/tips"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 text = "战斗开始..."

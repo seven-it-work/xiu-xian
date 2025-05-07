@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=3 uid="uid://crqanvgxmiuay"]
+
+[ext_resource type="Script" uid="uid://bxtp4d1unq4hf" path="res://ui/fight/fight_skill/fight_skill_tips.gd" id="1_rajgr"]
+
+[node name="FightSkillTips" type="Node"]
+script = ExtResource("1_rajgr")
+
+[node name="Confirm" type="Button" parent="."]
+offset_right = 8.0
+offset_bottom = 8.0
+text = "确定"
+
+[node name="Cancel" type="Button" parent="."]
+offset_right = 8.0
+offset_bottom = 8.0
+text = "取消"
+
+[connection signal="pressed" from="Confirm" to="." method="_on_confirm_pressed"]
+[connection signal="pressed" from="Cancel" to="." method="_on_cancel_pressed"]
