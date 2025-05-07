@@ -22,6 +22,9 @@ func _process(delta: float) -> void:
 
 func cancel():
 	# 调整技能边框颜色为灰色(恢复选中效果)
+	var panel:StyleBox= self.get_theme_stylebox("panel").duplicate()
+	panel.border_color = Color(0.8, 0.8, 0.8)
+	self.add_theme_stylebox_override("panel",panel)
 	pass
 
 func removeSelf():
@@ -30,13 +33,16 @@ func removeSelf():
 	pass
 
 func _on_gui_input(event: InputEvent) -> void:
-	if event is InputEventMouseButton:
-		# 1、调整技能边框颜色为红色
+	if (event is InputEventMouseButton and event.pressed and
+	 event.button_index==MOUSE_BUTTON_LEFT) or (
+		event is InputEventScreenTouch and event.pressed):
+		# 1、调整当前节点边框颜色为红色
+		var panel:StyleBox= self.get_theme_stylebox("panel").duplicate()
+		panel.border_color = Color(1, 0, 0, 1)  # 红色边框
+		self.add_theme_stylebox_override("panel",panel)
+
 		# 2、调用fight的tips方法
 		var fightUi=get_node("/root/Main/ScrollContainer/FightUi")
 		fightUi.changeTips()
-		# todo 这里是选中了
-		if event.pressed:
-			print("点击了")
 		pass
 	pass # Replace with function body.

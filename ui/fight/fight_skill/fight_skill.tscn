@@ -103,6 +103,8 @@ animations = [{
 
 [node name="FightSkill" type="PanelContainer"]
 custom_minimum_size = Vector2(170, 200)
+offset_right = 170.0
+offset_bottom = 200.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_4iw2e")
 script = ExtResource("1_q5tfp")
 
@@ -120,6 +122,13 @@ layout_mode = 2
 size_flags_horizontal = 3
 alignment = 1
 
+[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "描述"
+
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="HBoxContainer/VBoxContainer"]
 visible = false
 position = Vector2(80, 99.5)
@@ -127,16 +136,5 @@ scale = Vector2(1.2046, 1.59336)
 sprite_frames = SubResource("SpriteFrames_7ymi6")
 autoplay = "default"
 
-[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 100)
-layout_mode = 2
-size_flags_vertical = 3
-text = "描述"
-
-[node name="AttackButton" type="Button" parent="HBoxContainer/VBoxContainer"]
-visible = false
-layout_mode = 2
-text = "攻击"
-
-[connection signal="gui_input" from="." to="." method="_on_gui_input"]
-[connection signal="pressed" from="HBoxContainer/VBoxContainer/AttackButton" to="." method="_on_attack_button_pressed"]
+[connection signal="gui_input" from="HBoxContainer" to="." method="_on_gui_input"]
+[connection signal="gui_input" from="HBoxContainer/VBoxContainer/RichTextLabel" to="." method="_on_gui_input"]

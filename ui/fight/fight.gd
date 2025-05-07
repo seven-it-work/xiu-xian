@@ -16,7 +16,7 @@ func init(enemyList:Array):
 	var player=People.build();
 	f_p.init(player)
 	$VBoxContainer/player.add_child(f_p)
-	var skill=Skill.new()
+	var skill=BaseDefenseSkill.new()
 	skill.name_str="测试"
 	skill.desc="测试描述"
 	$VBoxContainer/SkillList/GridContainer/Skill.init(skill,f_p,$VBoxContainer/player.get_children(),$VBoxContainer/Enemy.get_children())

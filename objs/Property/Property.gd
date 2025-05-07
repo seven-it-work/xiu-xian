@@ -30,7 +30,7 @@ func add_current(v:float):
 	if data_type==DATA_TYPE.BASE:
 		return;
 	if data_type==DATA_TYPE.BAR:
-		self.current=minf(self.current,max_v)
+		self.current_value=minf(self.current_value,max_v)
 		return;
 	if data_type==DATA_TYPE.RANDOM:
 		return;

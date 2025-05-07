@@ -80,3 +80,14 @@ static func set_border_color(panel:PanelContainer,color: Color):
 		new_style.border_width_top = 2
 		new_style.border_width_bottom = 2
 		panel.add_theme_stylebox_override("panel", new_style)
+
+# 动态调整大小
+static func set_sprite_size(an: AnimatedSprite2D, width: float, height: float):
+	# 获取原始纹理大小
+	var texture = an.sprite_frames.get_frame_texture("default", 0)
+	var original_size = texture.get_size()
+	# 计算需要的缩放比例
+	var scale_x = width / original_size.x
+	var scale_y = height / original_size.y
+	# 应用缩放
+	an.scale = Vector2(scale_x, scale_y)
