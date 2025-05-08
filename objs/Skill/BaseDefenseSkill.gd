@@ -1,7 +1,7 @@
 extends Skill
 class_name BaseDefenseSkill
 
-func _ready() -> void:
+func _init() -> void:
 	self.desc="获取当前防御值的护甲"
 	self.name_str="普通防御"
 	pass

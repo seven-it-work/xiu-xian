@@ -17,7 +17,6 @@ func init(fightPeopleNode:FightPeopleNode,all_friendly_list:Array,all_target_lis
 		var node=preload("uid://chxahynenhy0i").instantiate()
 		node.init(i,fightPeopleNode,all_friendly_list,all_target_list)
 		self.add_child(node)
-	# 2、
 	pass
 
 

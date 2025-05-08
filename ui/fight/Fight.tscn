@@ -18,6 +18,7 @@ layout_mode = 2
 theme_override_constants/separation = 20
 
 [node name="tips" type="PanelContainer" parent="VBoxContainer"]
+custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 
 [node name="BattleLog" type="TextEdit" parent="VBoxContainer/tips"]
@@ -27,6 +28,7 @@ text = "战斗开始..."
 editable = false
 
 [node name="FightSkillTips" parent="VBoxContainer/tips" instance=ExtResource("2_atot8")]
+visible = false
 layout_mode = 2
 
 [node name="GasList" type="Control" parent="VBoxContainer"]
@@ -61,6 +63,7 @@ custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
 
 [node name="SkillList" parent="VBoxContainer/SkillList" instance=ExtResource("3_xdhw2")]
+visible = false
 layout_mode = 2
 
 [node name="GridContainer" type="GridContainer" parent="VBoxContainer"]

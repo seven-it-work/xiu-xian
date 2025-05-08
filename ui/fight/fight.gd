@@ -4,8 +4,21 @@ var is_player_round:bool=false
 var fight_people_action_queues:Array=[]
 var all_fight_people_map:Dictionary={}
 var gas_gathering:Dictionary={}
+var selectFightSkill:FightSkill
+
+func selectFightSkillNode(selectFightSkill:FightSkill):
+	if self.selectFightSkill:
+		self.selectFightSkill.cancel()
+	self.selectFightSkill=selectFightSkill
+	self.selectFightSkill.selected()
+	self.changeTips("FightSkillTips",selectFightSkill)
+	
 
 func changeTips(tscnKey:String,initData):
+	if StrUtils.is_blank(tscnKey):
+		for i in $VBoxContainer/tips.get_children():
+			i.visible=false
+		return
 	var tips_node=$VBoxContainer/tips.find_child(tscnKey)
 	if !tips_node:
 		printerr("错误节点名称",tscnKey)
@@ -59,14 +72,16 @@ func init(enemyList:Array):
 		})
 	pass
 
+var speed=10
+
 func _process(delta: float) -> void:
 	if !is_player_round:
 		if !gas_gathering.is_empty():
 			# 集气判断，如果有人集气<=0则加入队列
 			for i in gas_gathering.keys():
 				var temp=gas_gathering.get(i)
-				temp.current_value-=1;
-				temp.node.position.x+=temp.step
+				temp.current_value-=speed;
+				temp.node.position.x+=temp.step*speed
 				if temp.current_value<=0:
 					var fightPeopleTemp=all_fight_people_map.get(i)
 					# 重新获取集气
@@ -81,6 +96,14 @@ func _process(delta: float) -> void:
 			if fightPeopleNode.people.uid=="3":
 				$VBoxContainer/GridContainer/EndRound.disabled=false
 				is_player_round=true
+				# 重置技能，从技能中随机选择x个（todo 目前是全部展示）
+				print_debug("技能重置了")
+				if selectFightSkill:
+					selectFightSkill.cancel()
+					selectFightSkill=null
+				$VBoxContainer/SkillList/SkillList.visible=true
+				for i in $VBoxContainer/SkillList/SkillList.get_children():
+					i.visible=true
 			else:
 				print("待开发 ai的动作执行")
 				pass
@@ -90,4 +113,6 @@ func _process(delta: float) -> void:
 func _on_end_round_pressed() -> void:
 	is_player_round=false
 	$VBoxContainer/GridContainer/EndRound.disabled=true
+	for i in $VBoxContainer/SkillList.get_children():
+		i.visible=false
 	pass # Replace with function body.

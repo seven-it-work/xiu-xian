@@ -41,9 +41,10 @@ func use(user:FightPeopleNode,all_friendly_list:Array,all_target_list:Array):
 # 攻击过程，子弹特性
 func skillSpecialEffects(specialEffectNode:Node,start_node:Node,end_node:Node):
 	specialEffectNode.set_anchors_and_offsets_preset(Control.PRESET_TOP_LEFT)
-	var mainUi=specialEffectNode.get_node("/root/Main")
+	var mainUi=start_node.get_tree().get_root().get_node("/root/Main")
 	mainUi.add_child(specialEffectNode)
-	var tween = create_tween()
+	await start_node.get_tree().process_frame
+	var tween = mainUi.create_tween()
 	specialEffectNode.position.x=start_node.global_position.x+randf_range(0,start_node.size.x-specialEffectNode.size.x)
 	specialEffectNode.position.y=start_node.global_position.y+start_node.size.y/2
 	var end_position=Vector2(
@@ -59,7 +60,7 @@ func skillSpecialEffects(specialEffectNode:Node,start_node:Node,end_node:Node):
 	# 动画结束后删除 Label
 	await tween.finished
 	specialEffectNode.queue_free()
-	AnimationUtils.start_shake(self,end_node)
+	AnimationUtils.start_shake(mainUi,end_node)
 	AnimationUtils.transition_border_color(end_node,Color.RED,Color(0.8, 0.8, 0.8))
 	AnimationUtils.transition_background_color(end_node,Color(1, 0.8, 0.8) ,Color(0.6, 0.6, 0.6))
 	pass

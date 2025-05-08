@@ -9,6 +9,7 @@ func init(fightSkill:FightSkill):
 	pass
 
 func _on_confirm_pressed() -> void:
+	self.visible=false
 	# 将改skill移除
 	fightSkill.removeSelf()
 	# todo 制作移除FightSkillNode动画
