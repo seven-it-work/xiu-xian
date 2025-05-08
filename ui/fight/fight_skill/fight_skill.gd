@@ -43,6 +43,7 @@ func _on_gui_input(event: InputEvent) -> void:
 
 		# 2、调用fight的tips方法
 		var fightUi=get_node("/root/Main/ScrollContainer/FightUi")
-		fightUi.changeTips()
+		if fightUi:
+			fightUi.changeTips("FightSkillTips",self)
 		pass
 	pass # Replace with function body.

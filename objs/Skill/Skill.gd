@@ -41,7 +41,7 @@ func use(user:FightPeopleNode,all_friendly_list:Array,all_target_list:Array):
 # 攻击过程，子弹特性
 func skillSpecialEffects(specialEffectNode:Node,start_node:Node,end_node:Node):
 	specialEffectNode.set_anchors_and_offsets_preset(Control.PRESET_TOP_LEFT)
-	var mainUi=get_node("/root/Main")
+	var mainUi=specialEffectNode.get_node("/root/Main")
 	mainUi.add_child(specialEffectNode)
 	var tween = create_tween()
 	specialEffectNode.position.x=start_node.global_position.x+randf_range(0,start_node.size.x-specialEffectNode.size.x)

@@ -2,17 +2,23 @@
 
 [ext_resource type="Script" uid="uid://bxtp4d1unq4hf" path="res://ui/fight/fight_skill/fight_skill_tips.gd" id="1_rajgr"]
 
-[node name="FightSkillTips" type="Node"]
+[node name="FightSkillTips" type="Control"]
+layout_mode = 3
+anchors_preset = 0
 script = ExtResource("1_rajgr")
 
 [node name="Confirm" type="Button" parent="."]
+layout_mode = 0
 offset_right = 8.0
 offset_bottom = 8.0
 text = "确定"
 
 [node name="Cancel" type="Button" parent="."]
-offset_right = 8.0
-offset_bottom = 8.0
+layout_mode = 0
+offset_left = 56.0
+offset_top = 1.0
+offset_right = 96.0
+offset_bottom = 32.0
 text = "取消"
 
 [connection signal="pressed" from="Confirm" to="." method="_on_confirm_pressed"]

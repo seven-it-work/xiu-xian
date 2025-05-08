@@ -1,4 +1,5 @@
 extends Skill
+class_name BaseAttackSkill
 
 func _ready() -> void:
 	self.desc="随机对一个敌人造成普通攻击伤害"

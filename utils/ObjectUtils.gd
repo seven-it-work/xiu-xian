@@ -40,65 +40,6 @@ static func dict_convert(d:Dictionary)->Dictionary:
 			d[key]=dict_convert(inst_to_dict(d[key]))
 	return d;
 
-# 权重选择器
-# d{数据:权重值}
-static func weight_selector(d:Dictionary,size:int=1):
-	var min=0;
-	for v in d.values():
-		min=minf(min,v)
-	var temp_d={}
-	for key in d:
-		temp_d[key]=d[key]+abs(min)
-	var total=temp_d.values().reduce(func(accum, number): return accum + number, 0)
-	var re=[]
-	for i in size:
-		var temp=0;
-		var value=randi_range(0,total)
-		for key in temp_d:
-			temp+=temp_d[key]
-			if value<=temp:
-				re.append(key)
-				break
-	return re;
-
-
-# 概率计算器
-static func probability(v:float,max:float=100)->bool:
-	return randf_range(0,max)<=v;
-
-
-
-## 计算两个时间差
-static func calculate_time_difference(timestamp1: int, timestamp2: int, unit: String = "天") -> int:
-	# 获取两个时间戳对应的日期字典
-	var date_dict1 = Time.get_date_dict_from_unix_time(timestamp1)
-	var date_dict2 = Time.get_date_dict_from_unix_time(timestamp2)
-	
-	# 提取年、月、日
-	var year1 = date_dict1.year
-	var month1 = date_dict1.month
-	var day1 = date_dict1.day
-	
-	var year2 = date_dict2.year
-	var month2 = date_dict2.month
-	var day2 = date_dict2.day
-	
-	# 计算两个日期之间的差异
-	var years_diff = year2 - year1
-	var months_diff = month2 - month1
-	var days_diff = day2 - day1
-	# 根据单位返回相应的时间差
-	match unit:
-		"年":
-			return years_diff
-		"月":
-			return years_diff * 12 + months_diff
-		"天":
-			return (timestamp2 - timestamp1)/24/60/60
-		_:
-			return 0  # 默认返回 0，如果单位无效
-	
-
 
 ## 释放对象以及其属性对象
 static func free_obj(obj):
@@ -147,4 +88,18 @@ static func merge(o,t,is_over:bool=false):
 		r.append_array(o)
 		r.append_array(t)
 		return r
-	# Log.err("只支持 Dictionary 和 Array")
+	printerr("只支持 Dictionary 和 Array")
+
+## 获取对象自定义的属性
+static func get_property_key(obj)->Array[String]:
+	var result:Array[String]=[]
+	if obj is Object:
+		for i in obj.get_property_list():
+			if i.usage==69638:
+				# enum
+				result.append(i.name)
+			elif i.usage==4102:
+				result.append(i.name)
+		return result
+	printerr("不支持该类型对象",obj)
+	return result

@@ -2,7 +2,11 @@ extends Control
 
 func _ready() -> void:
 	var p=People.build({lv=10,hp=10})
+	p.name_str="1"
+	p.uid="1"
 	var p1=People.build({lv=10,hp=10})
+	p1.name_str="2"
+	p1.uid="2"
 	$ScrollContainer/FightUi.init([p,p1])
 	pass
 

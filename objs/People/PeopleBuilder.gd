@@ -9,3 +9,5 @@ var hp:float=0;
 var atk:float=0;
 # def grow_value
 var def:float=0;
+var gas_gathering:float=0;
+var shield:float=0;
