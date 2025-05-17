@@ -1,0 +1,493 @@
+Subject: [PATCH] 完成技能溶解效果
+---
+Index: ui/common_ui/溶解特性/DissolvedUi.gdshader
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/ui/common_ui/溶解特性/DissolvedUi.gdshader b/ui/common_ui/溶解特性/DissolvedUi.gdshader
+new file mode 100644
+--- /dev/null	(revision 5567397cb1475498a60b0f61797f0314203ca962)
++++ b/ui/common_ui/溶解特性/DissolvedUi.gdshader	(revision 5567397cb1475498a60b0f61797f0314203ca962)
+@@ -0,0 +1,33 @@
++shader_type canvas_item; // 2D 着色器
++
++uniform sampler2D noise_tex; // 噪声纹理
++uniform float dissolve_threshold : hint_range(0.0, 1.0) = 0.5; // 溶解阈值
++uniform vec4 edge_color : source_color = vec4(1.0, 0.5, 0.0, 1.0); // 边缘颜色
++uniform float edge_width : hint_range(0.0, 0.1) = 0.0; // 边缘宽度
++uniform float edge_brightness:hint_range(1,5)=2; // 编译亮度
++
++void fragment() {
++    vec4 tex_color = texture(TEXTURE, UV);
++    float noise_val = texture(noise_tex, UV).r;
++
++	// 边缘强度计算
++	float edge_strength=smoothstep(
++		dissolve_threshold,
++		dissolve_threshold+edge_width,
++		noise_val
++	);
++
++    // 溶解逻辑
++    if (noise_val < dissolve_threshold) {
++        discard; // 丢弃像素（溶解）
++    }
++	//if (edge_width>0.0) {
++	// 边缘颜色混合
++	vec3 belended_color=mix(
++		edge_color.rgb*edge_brightness,
++		tex_color.rgb,
++		edge_strength
++	);
++    COLOR=vec4(belended_color,tex_color.a);
++	//}
++}
+\ No newline at end of file
+Index: ui/common_ui/溶解特性/DissolvedUi.gdshader.uid
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/ui/common_ui/溶解特性/DissolvedUi.gdshader.uid b/ui/common_ui/溶解特性/DissolvedUi.gdshader.uid
+new file mode 100644
+--- /dev/null	(revision 5567397cb1475498a60b0f61797f0314203ca962)
++++ b/ui/common_ui/溶解特性/DissolvedUi.gdshader.uid	(revision 5567397cb1475498a60b0f61797f0314203ca962)
+@@ -0,0 +1,1 @@
++uid://botgbsaycxa
+Index: ui/common_ui/溶解特性/DissolvedUi.tres
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/ui/common_ui/溶解特性/DissolvedUi.tres b/ui/common_ui/溶解特性/DissolvedUi.tres
+new file mode 100644
+--- /dev/null	(revision 5567397cb1475498a60b0f61797f0314203ca962)
++++ b/ui/common_ui/溶解特性/DissolvedUi.tres	(revision 5567397cb1475498a60b0f61797f0314203ca962)
+@@ -0,0 +1,20 @@
++[gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://doelw0ttud3g"]
++
++[ext_resource type="Shader" uid="uid://botgbsaycxa" path="res://ui/common_ui/溶解特性/DissolvedUi.gdshader" id="1_4nyx6"]
++
++[sub_resource type="FastNoiseLite" id="FastNoiseLite_g8ya0"]
++frequency = 0.005
++offset = Vector3(-1000, 0, 0)
++metadata/_preview_in_3d_space_ = true
++
++[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_c8xcp"]
++noise = SubResource("FastNoiseLite_g8ya0")
++
++[resource]
++resource_local_to_scene = true
++shader = ExtResource("1_4nyx6")
++shader_parameter/noise_tex = SubResource("NoiseTexture2D_c8xcp")
++shader_parameter/dissolve_threshold = 0.0
++shader_parameter/edge_color = Color(1, 0.5, 0, 1)
++shader_parameter/edge_width = 0.0
++shader_parameter/edge_brightness = 1.0
+Index: ui/common_ui/溶解特性/DissolvedUi.tscn
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/ui/common_ui/溶解特性/DissolvedUi.tscn b/ui/common_ui/溶解特性/DissolvedUi.tscn
+new file mode 100644
+--- /dev/null	(revision 5567397cb1475498a60b0f61797f0314203ca962)
++++ b/ui/common_ui/溶解特性/DissolvedUi.tscn	(revision 5567397cb1475498a60b0f61797f0314203ca962)
+@@ -0,0 +1,8 @@
++[gd_scene load_steps=3 format=3 uid="uid://bphscusbgbpp1"]
++
++[ext_resource type="Material" uid="uid://doelw0ttud3g" path="res://ui/common_ui/溶解特性/DissolvedUi.tres" id="1_cpo55"]
++[ext_resource type="Script" uid="uid://dwojkv2qf270" path="res://ui/common_ui/溶解特性/dissolved_ui.gd" id="2_cnlgd"]
++
++[node name="DissolvedUi" type="SubViewportContainer"]
++material = ExtResource("1_cpo55")
++script = ExtResource("2_cnlgd")
+Index: ui/common_ui/溶解特性/Test溶解.tscn
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/ui/common_ui/溶解特性/Test溶解.tscn b/ui/common_ui/溶解特性/Test溶解.tscn
+new file mode 100644
+--- /dev/null	(revision 5567397cb1475498a60b0f61797f0314203ca962)
++++ b/ui/common_ui/溶解特性/Test溶解.tscn	(revision 5567397cb1475498a60b0f61797f0314203ca962)
+@@ -0,0 +1,23 @@
++[gd_scene load_steps=3 format=3 uid="uid://mc5td0e4ggue"]
++
++[ext_resource type="Script" uid="uid://d1grvymcosevs" path="res://ui/common_ui/溶解特性/test溶解.gd" id="1_d7e4e"]
++[ext_resource type="PackedScene" uid="uid://bphscusbgbpp1" path="res://ui/common_ui/溶解特性/DissolvedUi.tscn" id="2_c20ba"]
++
++[node name="Test溶解" type="Node2D"]
++script = ExtResource("1_d7e4e")
++
++[node name="DissolvedUi" parent="." instance=ExtResource("2_c20ba")]
++
++[node name="SubViewport" type="SubViewport" parent="DissolvedUi"]
++handle_input_locally = false
++render_target_update_mode = 4
++
++[node name="PanelContainer" type="PanelContainer" parent="DissolvedUi/SubViewport"]
++offset_right = 40.0
++offset_bottom = 40.0
++
++[node name="Button" type="Button" parent="DissolvedUi/SubViewport/PanelContainer"]
++layout_mode = 2
++text = "好好"
++
++[connection signal="pressed" from="DissolvedUi/SubViewport/PanelContainer/Button" to="." method="_on_button_pressed"]
+Index: ui/common_ui/溶解特性/dissolved_ui.gd
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/ui/common_ui/溶解特性/dissolved_ui.gd b/ui/common_ui/溶解特性/dissolved_ui.gd
+new file mode 100644
+--- /dev/null	(revision 5567397cb1475498a60b0f61797f0314203ca962)
++++ b/ui/common_ui/溶解特性/dissolved_ui.gd	(revision 5567397cb1475498a60b0f61797f0314203ca962)
+@@ -0,0 +1,33 @@
++extends SubViewportContainer
++class_name DissolvedUi
++
++@export var edge_color=Color(1.0, 0.5, 0.0)
++
++func _init() -> void:
++	pass
++
++func _ready() -> void:
++	self.material.set_shader_parameter("edge_color",self.edge_color)
++	_random_noise()
++	$SubViewport.size=$SubViewport.get_child(0).size
++	
++
++func _random_noise():
++	var noise:FastNoiseLite=self.material.get_shader_parameter("noise_tex").noise
++	noise.seed=randi_range(0,9999)
++	noise.offset=Vector3(randf_range(-1000,1000),randf_range(-1000,1000),randf_range(-1000,1000))
++	
++
++func do_dissolved(is_free:bool=false):
++	var tween=create_tween()
++	tween.set_loops(1)
++	tween.parallel().tween_property(self.material,"shader_parameter/edge_width",0.1,0.5)
++	tween.parallel().tween_property(self.material,"shader_parameter/dissolve_threshold",1,1)
++	await tween.finished
++	_random_noise()
++	if is_free:
++		self.queue_free()
++	else:
++		self.visible=false
++		self.material.set_shader_parameter("edge_width",0.0)
++		self.material.set_shader_parameter("dissolve_threshold",0.0)
+Index: ui/common_ui/溶解特性/dissolved_ui.gd.uid
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/ui/common_ui/溶解特性/dissolved_ui.gd.uid b/ui/common_ui/溶解特性/dissolved_ui.gd.uid
+new file mode 100644
+--- /dev/null	(revision 5567397cb1475498a60b0f61797f0314203ca962)
++++ b/ui/common_ui/溶解特性/dissolved_ui.gd.uid	(revision 5567397cb1475498a60b0f61797f0314203ca962)
+@@ -0,0 +1,1 @@
++uid://dwojkv2qf270
+Index: ui/common_ui/溶解特性/test溶解.gd
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/ui/common_ui/溶解特性/test溶解.gd b/ui/common_ui/溶解特性/test溶解.gd
+new file mode 100644
+--- /dev/null	(revision 5567397cb1475498a60b0f61797f0314203ca962)
++++ b/ui/common_ui/溶解特性/test溶解.gd	(revision 5567397cb1475498a60b0f61797f0314203ca962)
+@@ -0,0 +1,6 @@
++extends Node2D
++
++
++func _on_button_pressed() -> void:
++	$DissolvedUi.do_dissolved()
++	pass # Replace with function body.
+Index: ui/common_ui/溶解特性/test溶解.gd.uid
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/ui/common_ui/溶解特性/test溶解.gd.uid b/ui/common_ui/溶解特性/test溶解.gd.uid
+new file mode 100644
+--- /dev/null	(revision 5567397cb1475498a60b0f61797f0314203ca962)
++++ b/ui/common_ui/溶解特性/test溶解.gd.uid	(revision 5567397cb1475498a60b0f61797f0314203ca962)
+@@ -0,0 +1,1 @@
++uid://d1grvymcosevs
+Index: ui/fight/fight_skill/FightSkill.tscn
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/ui/fight/fight_skill/FightSkill.tscn b/ui/fight/fight_skill/FightSkill.tscn
+new file mode 100644
+--- /dev/null	(revision 5567397cb1475498a60b0f61797f0314203ca962)
++++ b/ui/fight/fight_skill/FightSkill.tscn	(revision 5567397cb1475498a60b0f61797f0314203ca962)
+@@ -0,0 +1,151 @@
++[gd_scene load_steps=25 format=3 uid="uid://d2jfxnnooybkl"]
++
++[ext_resource type="Script" uid="uid://bm4gy16788c7q" path="res://ui/fight/fight_skill/fight_skill.gd" id="1_14mik"]
++[ext_resource type="Material" uid="uid://doelw0ttud3g" path="res://ui/common_ui/溶解特性/DissolvedUi.tres" id="1_vh8am"]
++[ext_resource type="Texture2D" uid="uid://pfgfaaqlo4tx" path="res://resource/guangquan/guangquan1_1.png" id="3_80orw"]
++[ext_resource type="Texture2D" uid="uid://du6siajl510bj" path="res://resource/guangquan/guangquan1_2.png" id="4_3iwmv"]
++[ext_resource type="Texture2D" uid="uid://buaty11it5aqd" path="res://resource/guangquan/guangquan1_3.png" id="5_w5sok"]
++[ext_resource type="Texture2D" uid="uid://6ji5yk70tk74" path="res://resource/guangquan/guangquan1_4.png" id="6_d8j0l"]
++[ext_resource type="Texture2D" uid="uid://ddmtwoob4x2ub" path="res://resource/guangquan/guangquan1_5.png" id="7_s7hq8"]
++[ext_resource type="Texture2D" uid="uid://dyy2ns7klf225" path="res://resource/guangquan/guangquan1_6.png" id="8_qxc4a"]
++[ext_resource type="Texture2D" uid="uid://k1a5wmqyh1m7" path="res://resource/guangquan/guangquan1_7.png" id="9_8kdxd"]
++[ext_resource type="Texture2D" uid="uid://duw0e3v3l2da5" path="res://resource/guangquan/guangquan1_8.png" id="10_k1034"]
++[ext_resource type="Texture2D" uid="uid://diru1h1sjdlre" path="res://resource/guangquan/guangquan1_9.png" id="11_s55t5"]
++[ext_resource type="Texture2D" uid="uid://l5e7m6xcrhc" path="res://resource/guangquan/guangquan1_10.png" id="12_bjmpw"]
++[ext_resource type="Texture2D" uid="uid://cua8nr70a7ihj" path="res://resource/guangquan/guangquan1_11.png" id="13_2k1xv"]
++[ext_resource type="Texture2D" uid="uid://bulcje8fhp60g" path="res://resource/guangquan/guangquan1_12.png" id="14_7k4ci"]
++[ext_resource type="Texture2D" uid="uid://bhx67qs3rnh3s" path="res://resource/guangquan/guangquan1_13.png" id="15_2e27i"]
++[ext_resource type="Texture2D" uid="uid://dnevtqdqcfpko" path="res://resource/guangquan/guangquan1_14.png" id="16_b74h2"]
++[ext_resource type="Texture2D" uid="uid://xctpvndxwb1p" path="res://resource/guangquan/guangquan1_15.png" id="17_bncwv"]
++[ext_resource type="Texture2D" uid="uid://d05cj3pxk6hsk" path="res://resource/guangquan/guangquan1_16.png" id="18_lhqew"]
++[ext_resource type="Texture2D" uid="uid://dj2wgf7b77xjd" path="res://resource/guangquan/guangquan1_17.png" id="19_jbpgg"]
++[ext_resource type="Texture2D" uid="uid://bb83plfwf0sm6" path="res://resource/guangquan/guangquan1_18.png" id="20_1ofte"]
++[ext_resource type="Texture2D" uid="uid://d2ae451l4vy3d" path="res://resource/guangquan/guangquan1_19.png" id="21_k5lj1"]
++[ext_resource type="Texture2D" uid="uid://ct0lbiw4pi48a" path="res://resource/guangquan/guangquan1_20.png" id="22_2jpvt"]
++
++[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qijln"]
++bg_color = Color(0.262932, 0.262932, 0.262932, 1)
++border_width_left = 5
++border_width_top = 5
++border_width_right = 5
++border_width_bottom = 5
++corner_radius_top_left = 10
++corner_radius_top_right = 10
++corner_radius_bottom_right = 10
++corner_radius_bottom_left = 10
++
++[sub_resource type="SpriteFrames" id="SpriteFrames_j50c1"]
++animations = [{
++"frames": [{
++"duration": 1.0,
++"texture": ExtResource("3_80orw")
++}, {
++"duration": 1.0,
++"texture": ExtResource("4_3iwmv")
++}, {
++"duration": 1.0,
++"texture": ExtResource("5_w5sok")
++}, {
++"duration": 1.0,
++"texture": ExtResource("6_d8j0l")
++}, {
++"duration": 1.0,
++"texture": ExtResource("7_s7hq8")
++}, {
++"duration": 1.0,
++"texture": ExtResource("8_qxc4a")
++}, {
++"duration": 1.0,
++"texture": ExtResource("9_8kdxd")
++}, {
++"duration": 1.0,
++"texture": ExtResource("10_k1034")
++}, {
++"duration": 1.0,
++"texture": ExtResource("11_s55t5")
++}, {
++"duration": 1.0,
++"texture": ExtResource("12_bjmpw")
++}, {
++"duration": 1.0,
++"texture": ExtResource("13_2k1xv")
++}, {
++"duration": 1.0,
++"texture": ExtResource("14_7k4ci")
++}, {
++"duration": 1.0,
++"texture": ExtResource("15_2e27i")
++}, {
++"duration": 1.0,
++"texture": ExtResource("16_b74h2")
++}, {
++"duration": 1.0,
++"texture": ExtResource("17_bncwv")
++}, {
++"duration": 1.0,
++"texture": ExtResource("18_lhqew")
++}, {
++"duration": 1.0,
++"texture": ExtResource("19_jbpgg")
++}, {
++"duration": 1.0,
++"texture": ExtResource("20_1ofte")
++}, {
++"duration": 1.0,
++"texture": ExtResource("21_k5lj1")
++}, {
++"duration": 1.0,
++"texture": ExtResource("22_2jpvt")
++}],
++"loop": true,
++"name": &"default",
++"speed": 5.0
++}]
++
++[node name="FightSkill" type="SubViewportContainer"]
++material = ExtResource("1_vh8am")
++offset_right = 512.0
++offset_bottom = 512.0
++script = ExtResource("1_14mik")
++metadata/_custom_type_script = "uid://dwojkv2qf270"
++
++[node name="SubViewport" type="SubViewport" parent="."]
++handle_input_locally = false
++size = Vector2i(170, 200)
++render_target_update_mode = 4
++
++[node name="PanelContainer" type="PanelContainer" parent="SubViewport"]
++custom_minimum_size = Vector2(170, 200)
++offset_right = 40.0
++offset_bottom = 40.0
++theme_override_styles/panel = SubResource("StyleBoxFlat_qijln")
++
++[node name="HBoxContainer" type="HBoxContainer" parent="SubViewport/PanelContainer"]
++layout_mode = 2
++
++[node name="Label" type="Label" parent="SubViewport/PanelContainer/HBoxContainer"]
++custom_minimum_size = Vector2(20, 0)
++layout_mode = 2
++text = "测试一下"
++autowrap_mode = 1
++
++[node name="VBoxContainer" type="VBoxContainer" parent="SubViewport/PanelContainer/HBoxContainer"]
++layout_mode = 2
++size_flags_horizontal = 3
++alignment = 1
++
++[node name="RichTextLabel" type="RichTextLabel" parent="SubViewport/PanelContainer/HBoxContainer/VBoxContainer"]
++custom_minimum_size = Vector2(0, 100)
++layout_mode = 2
++size_flags_horizontal = 3
++size_flags_vertical = 3
++text = "描述"
++
++[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="SubViewport/PanelContainer/HBoxContainer/VBoxContainer"]
++visible = false
++position = Vector2(80, 99.5)
++scale = Vector2(1.2046, 1.59336)
++sprite_frames = SubResource("SpriteFrames_j50c1")
++autoplay = "default"
++
++[connection signal="gui_input" from="." to="." method="_on_gui_input"]
+Index: ui/fight/fight_skill/SkillList.tscn
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/ui/fight/fight_skill/SkillList.tscn b/ui/fight/fight_skill/SkillList.tscn
+--- a/ui/fight/fight_skill/SkillList.tscn	(revision 18a43c4ffc5a17b336bec6662c158d6b0a873cb2)
++++ b/ui/fight/fight_skill/SkillList.tscn	(revision 5567397cb1475498a60b0f61797f0314203ca962)
+@@ -1,39 +1,12 @@
+ [gd_scene load_steps=3 format=3 uid="uid://bu47fybex8bo0"]
+ 
+ [ext_resource type="Script" uid="uid://b5dl38aqm6yl4" path="res://ui/fight/fight_skill/skill_list.gd" id="1_63ou7"]
+-[ext_resource type="PackedScene" uid="uid://chxahynenhy0i" path="res://ui/fight/fight_skill/fight_skill.tscn" id="1_sku2m"]
++[ext_resource type="PackedScene" uid="uid://d2jfxnnooybkl" path="res://ui/fight/fight_skill/FightSkill.tscn" id="2_63ou7"]
+ 
+ [node name="SkillList" type="Control"]
+ layout_mode = 3
+ anchors_preset = 0
+ script = ExtResource("1_63ou7")
+ 
+-[node name="FightSkill" parent="." instance=ExtResource("1_sku2m")]
+-layout_mode = 0
+-
+-[node name="FightSkill2" parent="." instance=ExtResource("1_sku2m")]
++[node name="FightSkill" parent="." instance=ExtResource("2_63ou7")]
+ layout_mode = 0
+-offset_left = 36.0
+-offset_top = 9.0
+-offset_right = 206.0
+-offset_bottom = 209.0
+-
+-[node name="FightSkill3" parent="." instance=ExtResource("1_sku2m")]
+-layout_mode = 0
+-offset_left = 70.0
+-offset_right = 240.0
+-
+-[node name="FightSkill4" parent="." instance=ExtResource("1_sku2m")]
+-layout_mode = 0
+-
+-[node name="FightSkill5" parent="." instance=ExtResource("1_sku2m")]
+-layout_mode = 0
+-offset_left = 36.0
+-offset_top = 9.0
+-offset_right = 206.0
+-offset_bottom = 209.0
+-
+-[node name="FightSkill6" parent="." instance=ExtResource("1_sku2m")]
+-layout_mode = 0
+-offset_left = 70.0
+-offset_right = 240.0
+Index: ui/fight/fight_skill/fight_skill_tips.gd
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/ui/fight/fight_skill/fight_skill_tips.gd b/ui/fight/fight_skill/fight_skill_tips.gd
+--- a/ui/fight/fight_skill/fight_skill_tips.gd	(revision 18a43c4ffc5a17b336bec6662c158d6b0a873cb2)
++++ b/ui/fight/fight_skill/fight_skill_tips.gd	(revision 5567397cb1475498a60b0f61797f0314203ca962)
+@@ -10,9 +10,8 @@
+ 
+ func _on_confirm_pressed() -> void:
+ 	self.visible=false
+-	# 将改skill移除
+-	fightSkill.removeSelf()
+-	# todo 制作移除FightSkillNode动画
++	# 移除FightSkillNode动画
++	fightSkill.do_dissolved()
+ 
+ 	## 执行技能
+ 	await fightSkill.skill.use(fightSkill.user,fightSkill.all_friendly_list,fightSkill.all_target_list)
+Index: ui/fight/fight_skill/skill_list.gd
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/ui/fight/fight_skill/skill_list.gd b/ui/fight/fight_skill/skill_list.gd
+--- a/ui/fight/fight_skill/skill_list.gd	(revision 18a43c4ffc5a17b336bec6662c158d6b0a873cb2)
++++ b/ui/fight/fight_skill/skill_list.gd	(revision 5567397cb1475498a60b0f61797f0314203ca962)
+@@ -14,7 +14,7 @@
+ 	for i in self.get_children():
+ 		i.queue_free()
+ 	for i in fightPeopleNode.people.skillList:
+-		var node=preload("uid://chxahynenhy0i").instantiate()
++		var node=preload("uid://d2jfxnnooybkl").instantiate()
+ 		node.init(i,fightPeopleNode,all_friendly_list,all_target_list)
+ 		self.add_child(node)
+ 	pass
+diff --git a/ui/fight/fight_skill/fight_skill.gd b/ui/fight/fight_skill/fight_skill.gd
+index 6a1435347d2a17ac551d6cc4fe6968f197a2dd99..27ebd1456dee28fcfd7e8876bb5e6db9b75ea1ff
+GIT binary patch
+literal 1595
+zc$~#lUrQT75P!b=6pQJ@9i$h1D+gDoR%yY1n8cS-j?L}FEZyE7yL&Nt^ACvH`c&+b
+zEmR79DoE*r3iiv?#P}_`d%4sYQ=w2O9D6&nv%i`7&CWneK};liN~Pqi38YHxh+!$i
+z7{3NIN7ovv{E9MW+f6JGW-L@#tbqy{mCAo21a1c}Uj9C;3###0d(3evLHHTqGVp}K
+zA}5d?NQ3X^Ug~KaAsSQV45^Fb?iT;xuQ)bH*S9SRtnQ7R1|#y2)h+DcjwZJ>p#^5i
+z<t*$VTWzaQKq>9)e&~F8(|P;ewjPwz+A4+hgbP(##xbxN9xF^^5T$3+ymceZ;~Fqe
+zK}+?qJX4QQD)BcUtGA>T8Z{~!@D4Nq8QE5%tDf^8CW1#Gr9*%z?4vs4Sh?uoW7Oo7
+zXeMbrubOQQ-_ry@q<}bv?E;$mxv|+h+3p^G?_9j=>>c#>x30F%dOyy(pLVW~k9vFG
+zE>F*|&X4uRw#-XNOfr61wHfHh19VTOo++4WKt_tTukn^Mk=>tgJ(4DjMp%L4n!L2q
+zt8qa<gb`<4pa9L7zcW=tli4@rB2+;AQ2O!ROS6Xw8F3!+CI~?Z45BDzKR0J4!f^yF
+z=cUg{cYmX|eKE?$=84`o-Oc09=Y#8wz01?D-NW7P$0PUuFf{2s(gfv;`_D)jel&!K
+zWH5akDs__q_%+U1P{&L{*0^b+@y8judDjj2wFfVl$KhH^LmDTka-a#Z^3ii6%$ohk
+zTkabmDu+xKxNhp{R4E=K921n8c!|($0mNu*E7#RBBkhVnD+m^rs^!^mx>~6$Er#>6
+za}^h9J{{dCW1N&DokLvVY1Fvu#AKcoy>13yl?JAuF*j_M1m~)>pm{H82+oEkz+B&W
+zLNjAh%kLT}E8lzlHockcW|}&NMt9K8*{VBY1rmlMK<iXBkReu4O-GHBwrBqWQ^Z+Z
+
+diff --git a/ui/fight/fight_skill/fight_skill.tscn b/ui/fight/fight_skill/fight_skill.tscn
+deleted file mode 100644
+index 69d5d566e0303afb5e1bd8100c91e6884d382321..0000000000000000000000000000000000000000
+GIT binary patch
+literal 0
+Hc$@<O00001
+

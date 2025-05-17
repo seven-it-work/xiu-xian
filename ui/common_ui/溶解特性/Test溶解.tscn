@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://mc5td0e4ggue"]
+
+[ext_resource type="Script" uid="uid://d1grvymcosevs" path="res://ui/common_ui/溶解特性/test溶解.gd" id="1_d7e4e"]
+[ext_resource type="PackedScene" uid="uid://bphscusbgbpp1" path="res://ui/common_ui/溶解特性/DissolvedUi.tscn" id="2_c20ba"]
+
+[node name="Test溶解" type="Node2D"]
+script = ExtResource("1_d7e4e")
+
+[node name="DissolvedUi" parent="." instance=ExtResource("2_c20ba")]
+
+[node name="SubViewport" type="SubViewport" parent="DissolvedUi"]
+handle_input_locally = false
+render_target_update_mode = 4
+
+[node name="PanelContainer" type="PanelContainer" parent="DissolvedUi/SubViewport"]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Button" type="Button" parent="DissolvedUi/SubViewport/PanelContainer"]
+layout_mode = 2
+text = "好好"
+
+[connection signal="pressed" from="DissolvedUi/SubViewport/PanelContainer/Button" to="." method="_on_button_pressed"]

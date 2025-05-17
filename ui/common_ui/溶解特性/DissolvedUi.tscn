@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://bphscusbgbpp1"]
+
+[ext_resource type="Material" uid="uid://doelw0ttud3g" path="res://ui/common_ui/溶解特性/DissolvedUi.tres" id="1_cpo55"]
+[ext_resource type="Script" uid="uid://dwojkv2qf270" path="res://ui/common_ui/溶解特性/dissolved_ui.gd" id="2_cnlgd"]
+
+[node name="DissolvedUi" type="SubViewportContainer"]
+material = ExtResource("1_cpo55")
+script = ExtResource("2_cnlgd")

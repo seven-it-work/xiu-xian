@@ -10,9 +10,8 @@ func init(fightSkill:FightSkill):
 
 func _on_confirm_pressed() -> void:
 	self.visible=false
-	# 将改skill移除
-	fightSkill.removeSelf()
-	# todo 制作移除FightSkillNode动画
+	# 移除FightSkillNode动画
+	fightSkill.do_dissolved()
 
 	## 执行技能
 	await fightSkill.skill.use(fightSkill.user,fightSkill.all_friendly_list,fightSkill.all_target_list)

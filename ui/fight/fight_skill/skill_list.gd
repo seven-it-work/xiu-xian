@@ -14,7 +14,7 @@ func init(fightPeopleNode:FightPeopleNode,all_friendly_list:Array,all_target_lis
 	for i in self.get_children():
 		i.queue_free()
 	for i in fightPeopleNode.people.skillList:
-		var node=preload("uid://chxahynenhy0i").instantiate()
+		var node=preload("uid://d2jfxnnooybkl").instantiate()
 		node.init(i,fightPeopleNode,all_friendly_list,all_target_list)
 		self.add_child(node)
 	pass
