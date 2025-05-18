@@ -2,11 +2,12 @@
 
 [ext_resource type="Shader" uid="uid://cvihyp6wb3ibd" path="res://ui/common_ui/特效/火焰/Fire.tres" id="1_r4fcd"]
 [ext_resource type="Texture2D" uid="uid://cl5x674voi7id" path="res://ui/common_ui/特效/火焰/fire_noise.png" id="2_v23bd"]
-[ext_resource type="Texture2D" uid="uid://bstap4udr0o1u" path="res://ui/common_ui/特效/火焰/PixPin_2025-05-17_23-19-51.png" id="3_sg3c3"]
+[ext_resource type="Texture2D" uid="uid://kqlk4ly8f60q" path="res://ui/common_ui/特效/火焰/光照效果2.png" id="3_34nk2"]
+[ext_resource type="Texture2D" uid="uid://cx0rshcbpl8dl" path="res://ui/common_ui/特效/火焰/空白.png" id="4_8dbgd"]
 
 [sub_resource type="Gradient" id="Gradient_sg3c3"]
 offsets = PackedFloat32Array(0, 0.421277, 0.582979, 1)
-colors = PackedColorArray(0, 0, 0, 1, 0.764706, 0.305882, 0.0784314, 0.639216, 0.678431, 0.478431, 0.105882, 0.611765, 1, 0.811765, 0.184314, 1)
+colors = PackedColorArray(0, 0, 0, 0, 0.764706, 0.305882, 1, 0.639216, 0.670588, 0, 1, 0.592157, 0.72549, 0, 1, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_34nk2"]
 gradient = SubResource("Gradient_sg3c3")
@@ -31,13 +32,10 @@ shader_parameter/Scale = Vector2(1, 1)
 shader_parameter/Spedd = Vector2(0, 1)
 shader_parameter/Base = ExtResource("2_v23bd")
 shader_parameter/SimplePort = SubResource("GradientTexture2D_sg3c3")
-shader_parameter/Shap = ExtResource("3_sg3c3")
+shader_parameter/Shap = ExtResource("3_34nk2")
 shader_parameter/Shap2 = SubResource("GradientTexture2D_8dbgd")
 shader_parameter/Color = SubResource("GradientTexture1D_34nk2")
 
-[sub_resource type="CanvasTexture" id="CanvasTexture_jop7a"]
-
 [node name="Fire" type="Sprite2D"]
 material = SubResource("ShaderMaterial_v23bd")
-scale = Vector2(20, 20)
-texture = SubResource("CanvasTexture_jop7a")
+texture = ExtResource("4_8dbgd")

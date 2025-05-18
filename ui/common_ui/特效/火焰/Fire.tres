@@ -45,7 +45,7 @@ parameter_name = "Base"
 texture_repeat = 1
 
 [sub_resource type="VisualShaderNodeFrame" id="VisualShaderNodeFrame_acqhg"]
-size = Vector2(368, 685)
+size = Vector2(264, 402)
 title = "纹理"
 attached_nodes = PackedInt32Array(21, 22)
 
@@ -78,12 +78,12 @@ linked_parent_graph_frame = 4
 source = 5
 
 [sub_resource type="VisualShaderNodeFrame" id="VisualShaderNodeFrame_teine"]
-size = Vector2(368, 665)
+size = Vector2(244, 382)
 title = "纹理"
 attached_nodes = PackedInt32Array(2, 3, 13, 14)
 
 [sub_resource type="VisualShaderNodeFrame" id="VisualShaderNodeFrame_pct5y"]
-size = Vector2(603, 405)
+size = Vector2(564, 122)
 title = "纹理"
 attached_nodes = PackedInt32Array(7, 6)
 
@@ -97,7 +97,7 @@ linked_parent_graph_frame = 5
 parameter_name = "SimplePort"
 
 [sub_resource type="VisualShaderNodeFrame" id="VisualShaderNodeFrame_ro6jf"]
-size = Vector2(368, 665)
+size = Vector2(264, 382)
 title = "纹理"
 attached_nodes = PackedInt32Array(10, 9)
 
@@ -202,7 +202,6 @@ void fragment() {
 
 }
 "
-graph_offset = Vector2(489.547, 401.146)
 mode = 1
 flags/light_only = false
 nodes/fragment/0/position = Vector2(1780, 500)

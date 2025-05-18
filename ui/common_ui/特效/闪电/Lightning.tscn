@@ -1,18 +1,18 @@
 [gd_scene load_steps=4 format=3 uid="uid://njppknx84h7e"]
 
 [ext_resource type="Shader" uid="uid://bnsy4u2otj715" path="res://ui/common_ui/特效/闪电/Lightning.tres" id="1_1n8vy"]
-[ext_resource type="Texture2D" uid="uid://blqhb0nj8k478" path="res://ui/common_ui/特效/闪电/闪电.png" id="2_xxi8r"]
+[ext_resource type="Texture2D" uid="uid://vrjkm3pmliea" path="res://ui/common_ui/特效/闪电/雷电纹理.jpg" id="2_xxi8r"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xxi8r"]
 shader = ExtResource("1_1n8vy")
 shader_parameter/Die_Value = 0.0
-shader_parameter/speed = Vector2(-2, 0)
+shader_parameter/speed = Vector2(-1, 0)
 shader_parameter/Lightning = ExtResource("2_xxi8r")
 
 [node name="Lightning" type="Line2D"]
 material = SubResource("ShaderMaterial_xxi8r")
 position = Vector2(2, 5)
-points = PackedVector2Array(0, -1, 0, 451)
+points = PackedVector2Array(0, -1, 0, 600)
 width = 150.0
 default_color = Color(0.984314, 1, 0.32549, 1)
 texture_mode = 2
