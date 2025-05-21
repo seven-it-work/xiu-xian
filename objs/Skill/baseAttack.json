@@ -5,7 +5,7 @@
 	"desc": "随机对一个敌人造成普通攻击伤害",
 	"skill_type": 1,
 	"select_condition": {
-		"filename": "res://objs/Skill/condition/RandomSelectCondition.gd",
+		"filename": "res://objs/Skill/condition/BaseCondition.gd",
 		"name_str": "随机"
 	},
 	"target_condition": {

@@ -1,0 +1,21 @@
+extends Control
+
+func _ready() -> void:
+#	uid://c22vnda7wgb3u
+	var f=FileAccess.open("res://Main.gd",FileAccess.READ)
+	print(ResourceUID.id_to_text(ResourceLoader.get_resource_uid("res://Main.gd")))
+	
+	var p=People.build({lv=10,hp=10})
+	p.name_str="1"
+	p.uid="1"
+	var p1=People.build({lv=10,hp=10})
+	p1.name_str="2"
+	p1.uid="2"
+	$ScrollContainer/FightUi.init([p,p1])
+	pass
+
+func _process(delta: float) -> void:
+	self.size=get_viewport().get_visible_rect().size
+	$ScrollContainer.size=self.size
+	$ScrollContainer/FightUi.size=self.size
+	pass

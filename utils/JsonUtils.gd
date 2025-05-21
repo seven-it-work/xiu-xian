@@ -20,7 +20,9 @@ static func json_2_obj(json):
 	if json is Dictionary:
 		if json.has("filename") && json["filename"]:
 			var obj
-			if json["filename"].ends_with(".gd"):
+			if json["filename"].begins_with("uid://"):
+				obj=dict_to_inst({"@path":json["filename"]})
+			elif json["filename"].ends_with(".gd"):
 				obj=dict_to_inst({"@path":json["filename"]})
 			else:
 				obj=load(json["filename"]).instantiate()
@@ -67,6 +69,7 @@ static func obj_2_json(obj):
 		# 这里去读取obj的get_property_list
 		var re={}
 		var property_list=obj.get_property_list()
+		print(property_list)
 		for i in property_list:
 			if i.hint_string.begins_with("res://"):
 				re["filename"]=i.hint_string
