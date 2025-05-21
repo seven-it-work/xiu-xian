@@ -1,11 +1,32 @@
 extends Node
 class_name Skill
 
+enum Skill_Type{
+	None,
+	Attack,
+	Def,
+}
+
+@export var id:String=""
 @export var name_str:String=""
 @export var desc:String=""
+@export var skill_type:Skill_Type=Skill_Type.None
+
+# 敌人过滤条件
+@export var select_condition:BaseCondition=RandomSelectCondition.new()
+# 目标
+@export var target_condition:BaseCondition=Self.new()
+# 数量
+@export var target_size:int=1
+# 动作
+@export var action:BaseSkillAction
+# 持续回合(0表示当前回合，1表示下个回合就失效了)
+@export var continuous_round:int=0;
+
+# 动画节点路径（类似子弹这种）
 @export var react_path:String=""
 
-## 消耗
+## 基础灵力消耗
 @export var cost:Property=Property.buildByJsonStr("""
 {
 	"filename": "res://objs/Property/Property.gd",
@@ -22,6 +43,10 @@ class_name Skill
 }
 """)
 
+## 计算灵力消耗（更具技能强度来算）
+# 公式如下：
+func get_real_cost():
+	pass
 
 func getSpecialEffectNode()->Node:
 	if StrUtils.is_blank(react_path):
@@ -33,35 +58,8 @@ func getSpecialEffectNode()->Node:
 	return t;
 
 func use(user:FightPeopleNode,all_friendly_list:Array,all_target_list:Array):
-	print("由子类实现")
+	var target_list=target_condition.start_filter(user,all_friendly_list,all_target_list)
+	target_list= select_condition.filter_china(target_list,self.target_size)
+	if action:
+		await action.do_action(self,user,target_list)
 	pass
-
-#region 动画方法库
-
-# 攻击过程，子弹特性
-func skillSpecialEffects(specialEffectNode:Node,start_node:Node,end_node:Node):
-	specialEffectNode.set_anchors_and_offsets_preset(Control.PRESET_TOP_LEFT)
-	var mainUi=start_node.get_tree().get_root().get_node("/root/Main")
-	mainUi.add_child(specialEffectNode)
-	await start_node.get_tree().process_frame
-	var tween = mainUi.create_tween()
-	specialEffectNode.position.x=start_node.global_position.x+randf_range(0,start_node.size.x-specialEffectNode.size.x)
-	specialEffectNode.position.y=start_node.global_position.y+start_node.size.y/2
-	var end_position=Vector2(
-		end_node.global_position.x+randf_range(0,end_node.size.x-specialEffectNode.size.x),
-		end_node.global_position.y+end_node.size.y/2
-	)
-	tween.tween_property(
-		specialEffectNode,                # 目标对象
-		"position",    # 要动画的属性
-		end_position,  # 目标位置
-		0.5                  # 动画时长（秒）
-	).set_ease(Tween.EASE_IN)
-	# 动画结束后删除 Label
-	await tween.finished
-	specialEffectNode.queue_free()
-	AnimationUtils.start_shake(mainUi,end_node)
-	AnimationUtils.transition_border_color(end_node,Color.RED,Color(0.8, 0.8, 0.8))
-	AnimationUtils.transition_background_color(end_node,Color(1, 0.8, 0.8) ,Color(0.6, 0.6, 0.6))
-	pass
-#endregion

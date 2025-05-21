@@ -1,6 +1,49 @@
 extends Node
 class_name AnimationUtils
 
+#region 攻击动画方法库
+
+# 攻击过程，子弹特性
+static func skillSpecialEffects(specialEffectNode:Node,start_node:Node,end_node:Node):
+	await batchSkillSpecialEffects(specialEffectNode,start_node,[end_node])
+	pass
+	
+static func batchSkillSpecialEffects(specialEffectNode:Node,start_node:Node,end_node_list:Array):
+	var mainUi=start_node.get_tree().get_root().get_node("/root/Main")
+	mainUi.set_anchors_and_offsets_preset(Control.PRESET_TOP_LEFT)
+	await start_node.get_tree().process_frame
+	var tween = mainUi.create_tween().set_parallel(true)
+	specialEffectNode.position.x=start_node.global_position.x+randf_range(0,start_node.size.x-specialEffectNode.size.x)
+	specialEffectNode.position.y=start_node.global_position.y+start_node.size.y/2
+	var free_queue=[]
+	for end_node in end_node_list:
+		var temp=specialEffectNode.duplicate()
+		mainUi.add_child(temp)
+		free_queue.append(temp)
+		var end_position=Vector2(
+			end_node.global_position.x+randf_range(0,end_node.size.x-specialEffectNode.size.x),
+			end_node.global_position.y+end_node.size.y/2
+		)
+		tween.tween_property(
+			temp,                # 目标对象
+			"position",    # 要动画的属性
+			end_position,  # 目标位置
+			0.5               # 动画时长（秒）
+		).set_ease(Tween.EASE_IN)
+	# 动画结束后删除 Label
+	await tween.finished
+	for i in free_queue:
+		i.queue_free()
+	specialEffectNode.queue_free()
+	for end_node in end_node_list:
+		AnimationUtils.start_shake(mainUi,end_node)
+		AnimationUtils.transition_border_color(end_node,Color.RED,Color(0.8, 0.8, 0.8))
+		AnimationUtils.transition_background_color(end_node,Color(1, 0.8, 0.8) ,Color(0.6, 0.6, 0.6))
+	pass
+#endregion
+
+#region 常用动画方法库
+
 ## 开始抖动动画
 static func start_shake(parent:Node,node:Node):
 	var initial_position=node.position
@@ -91,3 +134,6 @@ static func set_sprite_size(an: AnimatedSprite2D, width: float, height: float):
 	var scale_y = height / original_size.y
 	# 应用缩放
 	an.scale = Vector2(scale_x, scale_y)
+
+
+#endregion

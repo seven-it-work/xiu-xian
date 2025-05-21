@@ -1,0 +1,35 @@
+{
+	"filename": "res://objs/Skill/Skill.gd",
+	"id": "",
+	"name_str": "普通攻击",
+	"desc": "随机对一个敌人造成普通攻击伤害",
+	"skill_type": 1,
+	"select_condition": {
+		"filename": "res://objs/Skill/condition/RandomSelectCondition.gd",
+		"name_str": "随机"
+	},
+	"target_condition": {
+		"filename": "res://objs/Skill/condition/BaseCondition.gd",
+		"name_str": "敌人"
+	},
+	"target_size": 2,
+	"action": {
+		"filename": "res://objs/Skill/condition/actions/BaseSkillAction.gd",
+		"name_str": ""
+	},
+	"continuous_round": 0,
+	"react_path": "",
+	"cost": {
+		"filename": "res://objs/Property/Property.gd",
+		"name_str": "消耗",
+		"current_value": 0.0,
+		"min_v": 0.0,
+		"max_v": 0.0,
+		"growth_min": 0.0,
+		"growth_max": 0.0,
+		"growth_factor": 0.0,
+		"grow_value": 0.0,
+		"growth_times": 0,
+		"data_type": 0
+	}
+}

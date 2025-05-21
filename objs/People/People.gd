@@ -82,7 +82,10 @@ var uid:String=""
 	"data_type": 1
   }
   """)
-@export var skillList:Array=[BaseDefenseSkill.new(),BaseAttackSkill.new()]
+@export var skillList:Array=[
+	BaseDefenseSkill.new(),
+	JsonUtils.json_2_obj(JSON.parse_string(FileAccess.get_file_as_string("res://objs/Skill/baseAttack.json"))),
+]
 
 # endregion
 
